@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const StartServerPlugin = require('start-server-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 
@@ -19,14 +20,18 @@ module.exports = ({ resolvePath, START_DEV_SERVER }) => {
       }),
     ],
     watch: true,
+    plugins: [
+      new webpack.DefinePlugin({
+        SIMORGH_TARGET: JSON.stringify('node'),
+      }),
+    ],
   };
 
   if (START_DEV_SERVER) {
-    const webpack = require('webpack');
-    serverConfig.plugins = [
+    serverConfig.plugins.push(
       new webpack.HotModuleReplacementPlugin(),
       new StartServerPlugin('server.js'), // only start the server if we've run `npm run dev`
-    ];
+    );
   }
 
   return serverConfig;

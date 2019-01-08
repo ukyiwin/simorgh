@@ -34,8 +34,8 @@
     "test:lint:css": "stylelint 'src/**/*.js' 'src/**/*.jsx'",
     "test:unit": "export $(cat .env | xargs); jest --env=jsdom --coverage --colors",
     "updateSnapshots": "npm run test:unit -- -u",
-    "webpack:dev:client": "NODE_ENV=development webpack-dev-server --inline --hot --env.config='client'",
-    "webpack:dev:server": "wait-on ./build/assets.json && NODE_ENV=development webpack --env.config='server'"
+    "webpack:dev:client": "echo 'Starting client...' && NODE_ENV=development webpack-dev-server --inline --hot --env.config='client'",
+    "webpack:dev:server": "wait-on ./build/assets.json && echo 'Starting server...' && NODE_ENV=development webpack --env.config='server'"
   },
   "husky": {
     "hooks": {

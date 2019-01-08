@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
 
 module.exports = ({ resolvePath, IS_PROD, START_DEV_SERVER }) => {
@@ -43,6 +44,9 @@ module.exports = ({ resolvePath, IS_PROD, START_DEV_SERVER }) => {
       },
     },
     plugins: [
+      new webpack.DefinePlugin({
+        SIMORGH_TARGET: JSON.stringify('web'),
+      }),
       // keep track of the generated chunks in build/assets.json
       // this determines what scripts get put in the footer of the page
       new AssetsPlugin({
@@ -53,7 +57,6 @@ module.exports = ({ resolvePath, IS_PROD, START_DEV_SERVER }) => {
   };
 
   if (START_DEV_SERVER) {
-    const webpack = require('webpack');
     clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
   }
 
